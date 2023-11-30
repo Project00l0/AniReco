@@ -8,58 +8,56 @@
     margin: 0;
     padding: 0;
 
-    #mainCon{
+    #displayCon {
         width: 100vw;
         height: 100vh;
         background-color: #c7ecd9;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: 'Inter';
         
-        #searchBox {
-            width: 50%;
-            height: 70%;
-            background-color: #001f3f;
-            border-radius: 1.5vw;
-            box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+        nav {
+            width: 100%;
+            height: auto;
+            padding: 1vh 0 0 0;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            flex-direction: row;
 
-            #t1 {
+
+
+            #logo {
+                width: 12vw;
+                height: 10vh;
+                background-color: #001f3f;
                 color: #f2f2f2;
-                margin: 0 0 5vh 0;
-                
+                font-family: 'Inter';
+                border-radius: 1vw;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0 0 1vh 0;
+                margin: 0 0 0 5vw;
+                box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+
                 .icon1 {
                     transform: rotate(-20deg);
-                    vertical-align: bottom;
-                    font-size: 4vw;
+                    position: relative;
+                    top: 0.5vh;
+                    font-size: 2.3vw;
                 }
             }
-            
-            #p1 {
-                color: #f2f2f2;
-                width: 80%;
-                text-align: center;
-                margin: 0 0 3vh 0;
-            }
-
             .box{
                 position: relative;
+                right: -70%;
 
                 .input {
                     padding: 10px;
                     width: 80px;
                     height: 80px;
                     background: none;
-                    border: 4px solid #c7ecd9;
+                    border: 4px solid #001f3f;
                     border-radius: 50px;
                     box-sizing: border-box;
                     font-family: Comic Sans MS;
                     font-size: 26px;
-                    color: #c7ecd9;
+                    color: #001f3f;
                     outline: none;
                     transition: .5s;
                 }
@@ -68,7 +66,7 @@
 
             .box:hover input{
                 width: 350px;
-                background: #c7ecd9;
+                background: #001f3f;
                 border-radius: 10px;
                 color: #001f3f;
             }
@@ -78,7 +76,7 @@
                 right: 15px;
                 transform: translate(-50%,-50%);
                 font-size: 26px;
-                color: #c7ecd9;
+                color: #001f3f;
                 transition: .2s;
             }
             .box:hover i{

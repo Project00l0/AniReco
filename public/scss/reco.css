@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+}
+* #displayCon {
+  width: 100vw;
+  height: 100vh;
+  background-color: #c7ecd9;
+}
+* #displayCon nav {
+  width: 100%;
+  height: auto;
+  padding: 1vh 0 0 0;
+  display: flex;
+  flex-direction: row;
+}
+* #displayCon nav #logo {
+  width: 12vw;
+  height: 10vh;
+  background-color: #001f3f;
+  color: #f2f2f2;
+  font-family: "Inter";
+  border-radius: 1vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0 1vh 0;
+  margin: 0 0 0 5vw;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+* #displayCon nav #logo .icon1 {
+  transform: rotate(-20deg);
+  position: relative;
+  top: 0.5vh;
+  font-size: 2.3vw;
+}
+* #displayCon nav .box {
+  position: relative;
+  right: -70%;
+}
+* #displayCon nav .box .input {
+  padding: 10px;
+  width: 80px;
+  height: 80px;
+  background: none;
+  border: 4px solid #001f3f;
+  border-radius: 50px;
+  box-sizing: border-box;
+  font-family: Comic Sans MS;
+  font-size: 26px;
+  color: #001f3f;
+  outline: none;
+  transition: 0.5s;
+}
+* #displayCon nav .box:hover input {
+  width: 350px;
+  background: #001f3f;
+  border-radius: 10px;
+  color: #001f3f;
+}
+* #displayCon nav .box i {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translate(-50%, -50%);
+  font-size: 26px;
+  color: #001f3f;
+  transition: 0.2s;
+}
+* #displayCon nav .box:hover i {
+  opacity: 0;
+  z-index: -1;
+}/*# sourceMappingURL=reco.css.map */
