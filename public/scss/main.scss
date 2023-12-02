@@ -29,7 +29,7 @@
             align-items: center;
 
             #t1 {
-                color: #f2f2f2;
+                color: #c7ecd9;
                 margin: 0 0 5vh 0;
                 
                 .icon1 {
@@ -84,6 +84,64 @@
             .box:hover i{
                 opacity: 0;
                 z-index: -1;
+            }
+        }
+    }
+}
+
+
+
+@media(max-width: 768px) {
+    #mainCon {
+        #searchBox {
+            width: 80%;
+
+            #t1 {
+                .icon1 {
+                    font-size: 10vh;
+                }
+            }
+        }
+    }
+}
+
+@media(max-width: 425px) {
+    #mainCon {
+        #searchBox {
+            width: 90%;
+            .box {
+                .input {
+                    width: 60px;
+                    height: 60px;
+                }
+            }
+            .box:hover input {
+                width: 300px;
+            }
+            .box i {
+                right: 10px;
+                font-size: 20px;
+            }
+        }
+    }
+}
+
+@media(max-width: 320px) {
+    #mainCon {
+        #searchBox {
+            width: 90%;
+            .box {
+                .input {
+                    width: 60px;
+                    height: 60px;
+                }
+            }
+            .box:hover input {
+                width: 250px;
+            }
+            .box i {
+                right: 10px;
+                font-size: 20px;
             }
         }
     }

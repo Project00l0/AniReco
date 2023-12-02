@@ -12,20 +12,26 @@
     <div id="displayCon">
         <nav>
             <div id="logo">
-                <h1 id="t1">ANIRECO<span class="material-symbols-outlined icon1">
-                    theaters
-                    </span>
-                </h1>
+                <a href="/">
+                    <h1 id="t1">ANIRECO<span class="material-symbols-outlined icon1">
+                        theaters
+                        </span>
+                    </h1>
+                </a>
             </div>
-            <div class="box">
-                <form name="search" action="/search" method="post">
-                    <input type="text" class="input" name="usrinp" onmouseout="this.value = ''; this.blur();">
-                </form>
-                <i class="fas fa-search"></i>
-            
+            <div id="cCon">
+                <div class="box">
+                    <form name="search" action="/search" method="post">
+                        <input type="text" class="input" name="usrinp" onmouseout="this.value = ''; this.blur();">
+                    </form>
+                    <i class="fas fa-search"></i>
+                
+                </div>
             </div>
         </nav>
-
+        <div id="cap">
+            <h1>Anime titles with matching genres:</h1>
+        </div>
         <div id="nothing">
         </div>
     </div>

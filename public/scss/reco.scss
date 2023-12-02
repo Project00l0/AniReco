@@ -37,54 +37,78 @@
                 margin: 0 0 0 5vw;
                 box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 
-                .icon1 {
-                    transform: rotate(-20deg);
-                    position: relative;
-                    top: 0.5vh;
-                    font-size: 2.3vw;
+                a {
+                    color:#c7ecd9;
+                    font-size: 1.3vw;
+                    text-decoration: none;
+                    .icon1 {
+                        transform: rotate(-20deg);
+                        position: relative;
+                        top: 0.5vh;
+                        font-size: 2.3vw;
+                        color: #c7ecd9;
+                    }
                 }
             }
-            .box{
+            #logo:hover {
+                transform: scale(1.1);
+                transition: 700ms ease-in-out;
+                cursor: pointer;
+            }
+            #cCon {
                 position: relative;
-                right: -65vw;
-                .input {
-                    padding: 10px;
-                    width: 60px;
-                    height: 60px;
-                    background: none;
-                    border: 4px solid #001f3f;
-                    border-radius: 50px;
-                    box-sizing: border-box;
-                    font-family: Comic Sans MS;
-                    font-size: 26px;
+                right: -55%;
+                width: 20vw;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .box{
+                    position: relative;
+    
+                    .input {
+                        padding: 10px;
+                        width: 55px;
+                        height: 55px;
+                        background: none;
+                        border: 4px solid #001f3f;
+                        border-radius: 50px;
+                        box-sizing: border-box;
+                        font-family: Comic Sans MS;
+                        font-size: 26px;
+                        color: #c7ecd9;
+                        outline: none;
+                        transition: .5s;
+                    }
+                }
+                
+    
+                .box:hover input{
+                    width: 350px;
+                    background: #001f3f;
+                    border-radius: 10px;
+                    color: #c7ecd9;
+                }
+                .box i{
+                    position: absolute;
+                    top: 50%;
+                    right: 5px;
+                    transform: translate(-50%,-50%);
+                    font-size: 22px;
                     color: #001f3f;
-                    outline: none;
-                    transition: .5s;
+                    transition: .2s;
+                }
+                .box:hover i{
+                    opacity: 0;
+                    z-index: -1;
                 }
             }
-            
+        }
 
-            .box:hover input{
-                width: 350px;
-                background: #001f3f;
-                border-radius: 10px;
-                color: #f2f2f2; 
-                transform: translate(-60%); /* Adjusted to expand to the left */
-
-            }
-            .box i{
-                position: absolute;
-                top: 50%;
-                right: 15px;
-                transform: translate(-33%,-70%);
-                font-size: 19px;
-                color: #001f3f;
-                transition: .2s;
-            }
-            .box:hover i{
-                opacity: 0;
-                z-index: -1;
-            }
+        #cap {
+            color:#001f3f;
+            font-family: 'Inter';
+            margin: 5vh 0 0 10vw;
         }
 
         #resCon {
@@ -125,6 +149,137 @@
                         flex-direction: row;
                         justify-content: space-evenly;
                         align-items: center;
+                        padding: 0 0 2vh 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media(max-width: 768px) {
+    #displayCon {
+        nav {
+            #logo {
+                width: 15vw;
+            }
+            #cCon {
+                .box {
+                    .input {
+                        width: 50px;
+                        height: 50px;
+                    }
+                }
+                .box:hover input {
+                    width: 250px;
+                }
+                .box i {
+                    font-size: 20px;
+                }
+            }
+        }
+        #cap {
+            font-size: 1.3vw;
+        }
+    }
+}
+
+
+@media(max-width: 425px) {
+    #displayCon {
+        nav {
+            #logo {
+                width: 20vw;
+                height: 7vh;
+                a {
+                    font-size: 2vw;
+                    .icon1 {
+                        font-size: 3.5vw;
+                        top: 0.3vh;
+                    }
+                }
+            }
+            #cCon {
+                right: -45%;
+                .box {
+                    .input {
+                        width: 30px;
+                        height: 30px;
+                        border: 2px solid #001f3f;
+                    }
+                }
+                .box:hover input {
+                    width: 150px;
+                }
+                .box i {
+                    right: 2px;
+                    font-size: 13px;
+                }
+            }
+        }
+        #cap {
+            font-size: 3vw;
+        }
+        #resCon {
+            #mdl {
+                width: 30vw;
+                a {
+                    h1 {
+                        font-size: 3vw;
+                    }
+                    #below{
+                        font-size: 2vw;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media(max-width: 320px) {
+    #displayCon {
+        nav {
+            #logo {
+                width: 38vw;
+                height: 7vh;
+                a {
+                    font-size: 4vw;
+                    .icon1 {
+                        font-size: 6vw;
+                        top: 0.3vh;
+                    }
+                }
+            }
+            #cCon {
+                right: -30%;
+                .box {
+                    .input {
+                        width: 30px;
+                        height: 30px;
+                        border: 2px solid #001f3f;
+                    }
+                }
+                .box:hover input {
+                    width: 100px;
+                }
+                .box i {
+                    right: 2px;
+                    font-size: 13px;
+                }
+            }
+        }
+        #cap {
+            font-size: 3vw;
+        }
+        #resCon {
+            #mdl {
+                width: 30vw;
+                a {
+                    h1 {
+                        font-size: 3vw;
+                    }
+                    #below{
+                        font-size: 2vw;
                     }
                 }
             }

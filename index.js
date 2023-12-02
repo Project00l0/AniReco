@@ -5,6 +5,7 @@ const cors = require('cors');
 const fs = require('fs');
 const ejs = require('ejs');
 const malScraper = require('mal-scraper');
+const axios = require('axios');
 const app = express();
 const path = require('path'); 
 
@@ -19,6 +20,26 @@ app.use(session({
 }));
 
 const search = malScraper.search
+// API KEY FOR KITSU
+// const apiKey = 'https://kitsu.io/api/edge';
+// const imgSearch = 'Naruto';
+// const apiUrl = `https://kitsu.io/api/edge/anime/${imgSearch}`;
+
+// const headers = {
+//   'Authorization': `Bearer ${apiKey}`,
+// };
+
+// axios.get(apiUrl, { headers })
+//   .then(response => {
+//     // Handle the successful response
+//     console.log(response.data);
+//   })
+//   .catch(error => {
+//     // Handle errors
+//     console.error('KITSU Error:', error.message);
+//   });
+
+
 // const type = 'anime'
 
 // console.log(search.helpers);
