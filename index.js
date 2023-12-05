@@ -3,9 +3,7 @@ const session  = require('express-session');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const fs = require('fs');
-const ejs = require('ejs');
 const malScraper = require('mal-scraper');
-const axios = require('axios');
 const app = express();
 const path = require('path'); 
 
@@ -20,56 +18,6 @@ app.use(session({
 }));
 
 const search = malScraper.search
-// API KEY FOR KITSU
-// const apiKey = 'https://kitsu.io/api/edge';
-// const imgSearch = 'Naruto';
-// const apiUrl = `https://kitsu.io/api/edge/anime/${imgSearch}`;
-
-// const headers = {
-//   'Authorization': `Bearer ${apiKey}`,
-// };
-
-// axios.get(apiUrl, { headers })
-//   .then(response => {
-//     // Handle the successful response
-//     console.log(response.data);
-//   })
-//   .catch(error => {
-//     // Handle errors
-//     console.error('KITSU Error:', error.message);
-//   });
-
-
-// const type = 'anime'
-
-// console.log(search.helpers);
-
-// search.search(type, {
-//     maxResults: 10, // Adjust as needed
-//     term: 0,
-//     type: 0,
-//     status: 0,
-//     score: 0,
-//     producer: 0,
-//     rating: 0,
-//     startDate: {
-//       day: 12,
-//       month: 2,
-//       year: 1990
-//     },
-//     endDate: {
-//       day: 12,
-//       month: 2,
-//       year: 2015
-//     },
-//     genreType: 0, // 0 for include genre list
-//     genres: [1, 4, 8] // 8 corresponds to the Drama genre, adjust as needed
-//   })
-//     .then(console.log)
-//     .catch(console.error);
-
-
-
 
 // FUNCTIONS ----------------------------------------------------------------
 function convertGenresToCodes(sessGenre) {
@@ -174,6 +122,91 @@ app.post("/search", (req, res) => {
     });
 });
 
+app.post("/searchManga", (req, res) => {
+  const aniTitle = req.body.usrinp;
+  // TO CLEAR DATA FROM PAST RESULSTS
+  req.session.sessResults = null;
+  req.session.sessRes = null;
+  req.session.sessGenre = null;
+
+  malScraper.getInfoFromName(aniTitle)
+    .then((data) => {
+      // Extract the desired information
+      const { genres } = data;
+
+      req.session.genres = genres;
+
+      // Log or send the extracted information
+      console.log("Genres:", genres);
+
+      // Send a response with the extracted information
+      // res.status(200).json({
+      //   genres: genres,
+      // });
+      res.redirect('/Manga_recommendations');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+app.get('/Manga_recommendations', async (req, res) => {
+  const filePath = path.join(__dirname, 'public', 'html', 'Reco.html');
+
+  try {
+    const sessGenre = req.session.genres || [];
+    const genreCodes = convertGenresToCodes(sessGenre);
+    const type = 'manga';
+
+    const searchResults = await search.search(type, {
+      maxResults: 10,
+      term: 0,
+      type: 0,
+      status: 0,
+      score: 0,
+      genreType: 0,
+      genres: genreCodes,
+    });
+
+    req.session.sessResults = searchResults;
+    const sessRes = req.session.sessResults;
+    console.log(sessRes);
+
+    const divs = sessRes.map((data) => `
+    <div id="mdl">
+      <div id="lef">
+        <a href="${data.url} target="_blank">
+          <img src="${data.thumbnail}" />
+        </a> 
+      </div>
+      <a href="${data.url}" target="_blank">
+        <h1>${data.title}</h1>
+        <p>Type: ${data.type}</p>
+        <p>Score: ${data.score || "Not yet added"}</p>
+        <p>Chapters: ${data.nbChapters || "Not yet added"}</p>
+        <p>Volumes:  ${data.vols || "Not yet added"}</p>
+        <div id="synop">
+          <p>Synopsis: ${data.shortDescription || "No synopsis added yet"}</p>
+        </div>
+      </a>
+    </div>
+  `);
+  
+    fs.readFile(filePath, 'utf8', (err, data) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ error: "Internal Server Error" });
+      }
+
+      const updatedHTML = data.replace('<div id="nothing">', `<div id="resCon">\n${divs.join('\n')}\n`);
+      res.send(updatedHTML);
+    });
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+
 
 app.get('/recommendations', async (req, res) => {
   const filePath = path.join(__dirname, 'public', 'html', 'Reco.html');
@@ -199,12 +232,19 @@ app.get('/recommendations', async (req, res) => {
 
     const divs = sessRes.map((data) => `
     <div id="mdl">
-      <a href="#" target="_blank">
-        <img src="${data.thumbnail}" />
+      <div id="lef">
+        <a href="${data.url} target="_blank">
+          <img src="${data.thumbnail}" />
+        </a> 
+      </div>
+      <a href="${data.url}" target="_blank">
         <h1>${data.title}</h1>
-        <div id="below">
-          <p>Score: ${data.score}</p>
-          <p>Episodes: ${data.nbEps}</p>
+        <p>Type: ${data.type}</p>
+        <p>Score: ${data.score}</p>
+        <p>Episodes: ${data.nbEps}</p>
+        <p>Rating:  ${data.rating}</p>
+        <div id="synop">
+          <p>Synopsis: ${data.shortDescription || "No synopsis added yet"}</p>
         </div>
       </a>
     </div>
