@@ -21,7 +21,7 @@
             </div>
             <div id="cCon">
                 <div class="box">
-                    <form name="search" action="/search" method="post">
+                    <form name="search" action="/search" method="post" id="fsearch">
                         <input type="text" class="input" name="usrinp" onmouseout="this.value = ''; this.blur();">
                     </form>
                     <i class="fas fa-search"></i>
@@ -30,10 +30,27 @@
             </div>
         </nav>
         <div id="cap">
-            <h1>Anime titles with matching genres:</h1>
+            <h1>Here are the matching genre results:</h1>
         </div>
         <div id="nothing">
         </div>
     </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        const searchForm = document.getElementById('fsearch')
+        // Get the current URL
+        const currentUrl = window.location.pathname;
+
+        // Check if the URL is '/Manga_recommendations'
+        if (currentUrl === '/Manga_recommendations') {
+            searchForm.action = '/searchManga';
+        }
+        else {
+            searchForm.action = '/search';
+        }
+    });
+
+    </script>
 </body>
 </html>

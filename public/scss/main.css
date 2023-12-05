@@ -74,6 +74,73 @@
   opacity: 0;
   z-index: -1;
 }
+* #mainCon #searchBox #tog {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  top: 5vh;
+}
+* #mainCon #searchBox #tog h1 {
+  color: #c7ecd9;
+  font-size: 1.5vw;
+}
+* #mainCon #searchBox #tog .switch {
+  --secondary-container: #f2f2f2;
+  --primary: #001f3f;
+  font-size: 17px;
+  position: relative;
+  display: inline-block;
+  width: 3em;
+  height: 1.4em;
+  top: 0vh;
+  left: 0.3vw;
+}
+* #mainCon #searchBox #tog .switch input {
+  display: none;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+* #mainCon #searchBox #tog .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #c7ecd9;
+  transition: 0.2s;
+  border-radius: 30px;
+}
+* #mainCon #searchBox #tog .slider:before {
+  position: absolute;
+  content: "";
+  height: 1.1em;
+  width: 1.1em;
+  border-radius: 20px;
+  left: 0.2em;
+  bottom: 0.2em;
+  background-color: #001f3f;
+  transition: 0.4s;
+}
+* #mainCon #searchBox #tog input:checked + .slider::before {
+  background-color: var(--primary);
+}
+* #mainCon #searchBox #tog input:checked + .slider {
+  background-color: var(--secondary-container);
+}
+* #mainCon #searchBox #tog input:focus + .slider {
+  box-shadow: 0 0 1px var(--secondary-container);
+}
+* #mainCon #searchBox #tog input:checked + .slider:before {
+  transform: translateX(1.5em);
+}
+* #mainCon #searchBox #help {
+  color: #c7ecd9;
+  position: relative;
+  bottom: -6vh;
+  font-size: 0.8vw;
+}
 
 @media (max-width: 768px) {
   #mainCon #searchBox {
@@ -81,6 +148,15 @@
   }
   #mainCon #searchBox #t1 .icon1 {
     font-size: 10vh;
+  }
+  #mainCon #searchBox #tog h1 {
+    font-size: 4vh;
+    position: relative;
+    top: -0.5vh;
+    left: -1vh;
+  }
+  #mainCon #searchBox #help {
+    font-size: 2vh;
   }
 }
 @media (max-width: 425px) {
@@ -113,5 +189,17 @@
   #mainCon #searchBox .box i {
     right: 10px;
     font-size: 20px;
+  }
+  #mainCon #searchBox #tog h1 {
+    font-size: 4vh;
+    position: relative;
+    top: 0vh;
+    left: -1vh;
+  }
+  #mainCon #searchBox #help {
+    width: 90%;
+    text-align: center;
+    margin: 0 0 3vh 0;
+    font-size: 2vh;
   }
 }/*# sourceMappingURL=main.css.map */

@@ -121,35 +121,43 @@
             align-items: flex-start;
 
             #mdl {
-                width: 20vw;
+                width: 39vw;
                 height: auto;
                 background-color: #001f3f;
                 border-radius: 1.5vw;
                 box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
                 overflow: hidden;
                 margin: 1vw 0 1vw 1vw;
+                display: flex;
+                flex-direction: row;
+                justify-content: left;
+                padding: 1vw;
 
+
+                #lef {
+                    width: 20%;
+                    height:100%;
+                    margin: 0 0.5vw 0 0;
+                    a {
+                        img {
+                            width: 100%;
+                            height: 90%;
+                            border-radius: 1vw;
+                        }
+                    }
+                }
                 a {
+                    width: 80%;
                     text-decoration: none;
                     color: #f2f2f2;
-                    img {
-                        width: 100%;
-                        height: 50%;
-                        object-fit: contain;
-                        border-radius: 1.5vw 1.5vw 0 0;
-                    }
                     h1 {
                         font-size: 2vw;
-                        text-align: center;
                     }
-                    #below {
-                        width: 100%;
-                        height: auto;
-                        display: flex;
-                        flex-direction: row;
-                        justify-content: space-evenly;
-                        align-items: center;
-                        padding: 0 0 2vh 0;
+                    #synop {
+                        width: 98%;
+                        height:auto;
+                        margin: 0.5vh 0 0 0;
+                        text-align: justify;
                     }
                 }
             }
@@ -180,6 +188,16 @@
         }
         #cap {
             font-size: 1.3vw;
+        }
+        #resCon {
+            #mdl {
+                width: 45vw;
+                a {
+                    h1 {
+                        font-size: 3vw;
+                    }
+                }
+            }
         }
     }
 }
@@ -222,13 +240,10 @@
         }
         #resCon {
             #mdl {
-                width: 30vw;
+                width: 90vw;
                 a {
                     h1 {
-                        font-size: 3vw;
-                    }
-                    #below{
-                        font-size: 2vw;
+                        font-size: 4vw;
                     }
                 }
             }
@@ -273,13 +288,11 @@
         }
         #resCon {
             #mdl {
-                width: 30vw;
+                width: 96vw;
+                margin: 1vh 0 0 0;
                 a {
                     h1 {
-                        font-size: 3vw;
-                    }
-                    #below{
-                        font-size: 2vw;
+                        font-size: 5vw;
                     }
                 }
             }

@@ -17,13 +17,33 @@
             </h1>
             <p id="p1">Provide the title of an anime, and we'll offer recommendations for similar anime based on themes and features.</p>
             <div class="box">
-                <form name="search" action="/search" method="post">
+                <form name="search" action="/search" method="post" id="fsearch">
                     <input type="text" class="input" name="usrinp" onmouseout="this.value = ''; this.blur();">
                 </form>
                 <i class="fas fa-search"></i>
-            
             </div>
+            <div id="tog">
+                <h1>Anime</h1>
+                <label class="switch">
+                    <input type="checkbox" id="toggleSwitch">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <p id="help">Utilize the switch to transition the search from anime to manga.</p>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const toggleSwitch = document.getElementById('toggleSwitch');
+            const searchForm = document.getElementById('fsearch');
+            const h1Element = document.querySelector('#tog h1');
+    
+            toggleSwitch.addEventListener('change', function () {
+                searchForm.action = toggleSwitch.checked ? '/searchManga' : '/search';
+                h1Element.textContent = toggleSwitch.checked ? 'Manga' : 'Anime';
+            });
+        });
+    </script>
 </body>
 </html>
