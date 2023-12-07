@@ -140,6 +140,7 @@
   position: relative;
   bottom: -6vh;
   font-size: 0.8vw;
+  text-align: center;
 }
 
 @media (max-width: 768px) {
@@ -173,6 +174,9 @@
   #mainCon #searchBox .box i {
     right: 10px;
     font-size: 20px;
+  }
+  #mainCon #searchBox #help {
+    margin: 0 0 1.5vh 0;
   }
 }
 @media (max-width: 320px) {

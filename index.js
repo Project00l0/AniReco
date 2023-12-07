@@ -49,47 +49,14 @@ function convertGenresToCodes(sessGenre) {
   return genreCodes;
 }
 
+const compareByScore = (anime1, anime2) => {
+  const score1 = parseFloat(anime1.score);
+  const score2 = parseFloat(anime2.score);
 
-function createAnimeCard(animeData) {
-  // Create the main div
-  const cardDiv = document.createElement('div');
-  cardDiv.classList.add('box');
+  // Sort in descending order
+  return score2 - score1;
+};
 
-  // Create the anchor element
-  const anchorElement = document.createElement('a');
-  anchorElement.href = animeData.url;
-  anchorElement.target = '_blank';
-
-  // Create the image element
-  const imgElement = document.createElement('img');
-  imgElement.src = animeData.thumbnail;
-
-  // Create the heading element
-  const headingElement = document.createElement('h1');
-  headingElement.textContent = animeData.title;
-
-  // Create the below div
-  const belowDiv = document.createElement('div');
-  belowDiv.id = 'below';
-
-  // Create paragraphs for score and episodes
-  const scoreParagraph = document.createElement('p');
-  scoreParagraph.textContent = `Score: ${animeData.score}`;
-
-  const episodesParagraph = document.createElement('p');
-  episodesParagraph.textContent = `Episodes: ${animeData.nbEps}`;
-
-  // Append elements to their respective parents
-  cardDiv.appendChild(anchorElement);
-  anchorElement.appendChild(imgElement);
-  anchorElement.appendChild(headingElement);
-  anchorElement.appendChild(belowDiv);
-  belowDiv.appendChild(scoreParagraph);
-  belowDiv.appendChild(episodesParagraph);
-
-  // Return the created HTML structure
-  return cardDiv;
-}
 
 // --------------------------------------------------------------------------------------
 
@@ -100,6 +67,8 @@ app.post("/search", (req, res) => {
   req.session.sessResults = null;
   req.session.sessRes = null;
   req.session.sessGenre = null;
+  req.session.scoreMax = 9; 
+  req.session.scoreMin = 8;
 
   malScraper.getInfoFromName(aniTitle)
     .then((data) => {
@@ -128,6 +97,8 @@ app.post("/searchManga", (req, res) => {
   req.session.sessResults = null;
   req.session.sessRes = null;
   req.session.sessGenre = null;
+  req.session.scoreMax = 9; 
+  req.session.scoreMin = 8;
 
   malScraper.getInfoFromName(aniTitle)
     .then((data) => {
@@ -157,13 +128,15 @@ app.get('/Manga_recommendations', async (req, res) => {
     const sessGenre = req.session.genres || [];
     const genreCodes = convertGenresToCodes(sessGenre);
     const type = 'manga';
+    const Max = req.session.scoreMax;
+    const Min = req.session.scoreMin;
 
     const searchResults = await search.search(type, {
       maxResults: 10,
       term: 0,
       type: 0,
       status: 0,
-      score: 0,
+      score: (Max, Min),
       genreType: 0,
       genres: genreCodes,
     });
@@ -171,8 +144,9 @@ app.get('/Manga_recommendations', async (req, res) => {
     req.session.sessResults = searchResults;
     const sessRes = req.session.sessResults;
     console.log(sessRes);
+    const sortedResData = sessRes.sort(compareByScore);
 
-    const divs = sessRes.map((data) => `
+    const divs = sortedResData.map((data) => `
     <div id="mdl">
       <div id="lef">
         <a href="${data.url} target="_blank">
@@ -191,20 +165,34 @@ app.get('/Manga_recommendations', async (req, res) => {
       </a>
     </div>
   `);
-  
+  const nextBtnHtml = (Max === 5 && Min === 4) ? '' : '<a href="/nextMangaPage" id="nextPage">Next Page<span class="material-symbols-outlined">navigate_next</span></a>';
     fs.readFile(filePath, 'utf8', (err, data) => {
       if (err) {
         console.error(err);
         return res.status(500).json({ error: "Internal Server Error" });
       }
 
-      const updatedHTML = data.replace('<div id="nothing">', `<div id="resCon">\n${divs.join('\n')}\n`);
+      const updatedHTML = data.replace('<div id="nothing">', `<div id="resCon">\n${divs.join('\n')}\n</div>\n${nextBtnHtml}`);
       res.send(updatedHTML);
     });
+    console.log("TEST", Max, Min);
   } catch (error) {
     console.error(error);
   }
 });
+
+app.get('/nextMangaPage', async (req, res) => {
+  try {
+    // Subtract 2 from each element of scoreMax and scoreMin, but ensure they don't go below 0
+    req.session.scoreMax = Math.max(req.session.scoreMax - 2, 5);
+    req.session.scoreMin = Math.max(req.session.scoreMin - 2, 4);
+    // Redirect to the recommendations route to perform a new search
+    res.redirect('/Manga_recommendations');
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 
 
 
@@ -215,13 +203,15 @@ app.get('/recommendations', async (req, res) => {
     const sessGenre = req.session.genres || [];
     const genreCodes = convertGenresToCodes(sessGenre);
     const type = 'anime';
+    const Max = req.session.scoreMax;
+    const Min = req.session.scoreMin;
 
     const searchResults = await search.search(type, {
       maxResults: 10,
       term: 0,
       type: 0,
-      status: 0,
-      score: 0,
+      status: 0,  
+      score: (Max, Min),
       genreType: 0,
       genres: genreCodes,
     });
@@ -229,8 +219,9 @@ app.get('/recommendations', async (req, res) => {
     req.session.sessResults = searchResults;
     const sessRes = req.session.sessResults;
     console.log(sessRes);
+    const sortedResData = sessRes.sort(compareByScore);
 
-    const divs = sessRes.map((data) => `
+    const divs = sortedResData.map((data) => `
     <div id="mdl">
       <div id="lef">
         <a href="${data.url} target="_blank">
@@ -249,6 +240,7 @@ app.get('/recommendations', async (req, res) => {
       </a>
     </div>
   `);
+  const nextBtnHtml = (Max === 5 && Min === 4) ? '' : '<a href="/nextAniPage" id="nextPage">Next Page<span class="material-symbols-outlined">navigate_next</span></a>';
   
     fs.readFile(filePath, 'utf8', (err, data) => {
       if (err) {
@@ -256,9 +248,23 @@ app.get('/recommendations', async (req, res) => {
         return res.status(500).json({ error: "Internal Server Error" });
       }
 
-      const updatedHTML = data.replace('<div id="nothing">', `<div id="resCon">\n${divs.join('\n')}\n`);
+      const updatedHTML = data.replace('<div id="nothing">', `<div id="resCon">\n${divs.join('\n')}\n</div>\n${nextBtnHtml}`);
       res.send(updatedHTML);
     });
+    
+    console.log("TEST", Max, Min);
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+app.get('/nextAniPage', async (req, res) => {
+  try {
+    // Subtract 2 from each element of scoreMax and scoreMin, but ensure they don't go below 0
+    req.session.scoreMax = Math.max(req.session.scoreMax - 2, 5);
+    req.session.scoreMin = Math.max(req.session.scoreMin - 2, 4);
+    // Redirect to the recommendations route to perform a new search
+    res.redirect('/recommendations');
   } catch (error) {
     console.error(error);
   }

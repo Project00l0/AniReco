@@ -159,6 +159,7 @@
                 position: relative;
                 bottom: -6vh;
                 font-size: 0.8vw;
+                text-align: center;
             }
         }
     }
@@ -207,6 +208,9 @@
             .box i {
                 right: 10px;
                 font-size: 20px;
+            }
+            #help {
+                margin: 0 0 1.5vh 0;
             }
         }
     }
