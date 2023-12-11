@@ -13,6 +13,7 @@
         height: 100vh;
         background-color: #c7ecd9;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         font-family: 'Inter';
@@ -161,6 +162,13 @@
                 font-size: 0.8vw;
                 text-align: center;
             }
+        }
+
+        small {
+            color:#001f3f;
+            position: relative;
+            font-size: 2vh;
+            bottom: -10vh;
         }
     }
 }
