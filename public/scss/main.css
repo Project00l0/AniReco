@@ -143,11 +143,9 @@
   font-size: 0.8vw;
   text-align: center;
 }
-* #mainCon small {
-  color: #001f3f;
+* #mainCon #coff {
   position: relative;
-  font-size: 2vh;
-  bottom: -10vh;
+  bottom: -7vh;
 }
 
 @media (max-width: 768px) {
